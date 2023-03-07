@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <link rel="stylesheet" href="../static/layui/css/layui.css" media="all">
+  <style>
+    body {
+      margin: 10px;
+    }
+
+    .demo-carousel {
+      height: 200px;
+      line-height: 200px;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="layui-row">
+    <div class="layui-col-xs6">
+      <div class="layui-row" style="margin-bottom: 10px;">
+        <div class="layui-col-md11">
+          <fieldset class="layui-elem-field layui-field-title">
+            <legend>图像回传</legend>
+          </fieldset>
+        </div>
+        <div class="layui-col-md1">
+          <button type="button" class="layui-btn layui-btn-primary layui-btn-sm" id="refresh" onclick="refresh()">
+            <i class="layui-icon layui-icon-refresh-3"></i>
+          </button>
+        </div>
+      </div>
+      <div class="layui-row">
+        <div class="layui-col-md11">
+          <div class="layui-row" style="height: 75vh;margin-top: 5px;">
+            <img id="camera" src="" style="width: 100%;object-fit: cover;" />
+          </div>
+          <div class="layui-row">
+            <div id="camerax" class="demo-slider"></div>
+          </div>
+        </div>
+        <div class="layui-col-md1" style="margin-top: 20px;height: 100%;">
+          <div id="cameray" class="demo-slider"></div>
+        </div>
+      </div>
+    </div>
+    <div class="layui-col-xs6">
+      <div class="layui-row">
+        <fieldset class="layui-elem-field layui-field-title">
+          <legend>控制与传感器</legend>
+        </fieldset>
+      </div>
+      <div class="layui-row" style="display: flex;justify-content: center;align-items: Center;">
+        <div class="layui-col-md1" style="text-align:right">速度:</div>
+        <div class="layui-col-md11">
+          <div id="speed" class="demo-slider"></div>
+        </div>
+      </div>
+      <div class="layui-row">
+        <div class="layui-col-md3">
+        <div>aaa</div>
+        </div>
+        <div class="layui-col-md9">
+          <canvas id="radar" width="510" height="270"></canvas>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <script src="../static/layui/layui.js"></script>
+  <script src="../static/jquery/jquery.js"></script>
+  <script src="../static/socket.io.js"></script>
+  <script>
+    function draw() {
+      var canvas = document.getElementById('radar');
+      if (!canvas.getContext) return;
+      var ctx = canvas.getContext("2d");
+      ctx.fillStyle = "rgb(0,0,0)";
+      ctx.beginPath();
+      ctx.arc(255,255,253,0, Math.PI,true);
+      ctx.moveTo(2, 255);
+      ctx.lineTo(508, 255);
+      ctx.closePath();
+      ctx.fill();
+
+      ctx.font = "12px sans-serif"
+      ctx.fillText("0", 252, 265);
+      ctx.fillText("100", 196, 265);
+      ctx.fillText("250", 121, 265);
+      ctx.fillText("375", 60, 265);
+      ctx.fillText("500", 0, 265);
+      ctx.fillText("100", 294, 265);
+      ctx.fillText("250", 370, 265);
+      ctx.fillText("375", 430, 265);
+      ctx.fillText("500", 490, 265);
+      
+    }
+    function bgdraw() {
+      var canvas = document.getElementById('radar');
+      if (!canvas.getContext) return;
+      var ctx = canvas.getContext("2d");
+      ctx.strokeStyle = "rgb(0,100,0)";
+      ctx.save();
+      ctx.beginPath();
+      ctx.arc(255,255,250,0, Math.PI,true);
+      ctx.moveTo(255, 255);
+      ctx.lineTo(255, 2);
+      ctx.stroke();
+      
+      ctx.beginPath();
+      ctx.arc(255,255,50,0, Math.PI,true);
+      ctx.arc(255,255,125,0, Math.PI,true);
+      ctx.arc(255,255,187.5,0, Math.PI,true);
+      ctx.stroke();
+
+      
+      ctx.beginPath();
+      ctx.translate(255,255);
+      ctx.rotate(Math.PI/180*225);
+      ctx.moveTo(0, 0);
+      ctx.lineTo(250, 0);
+      ctx.stroke();
+      ctx.restore();
+      
+      ctx.save();
+      ctx.translate(255,255);
+      ctx.rotate(Math.PI/180*315);
+      ctx.beginPath();
+      ctx.moveTo(0, 0);
+      ctx.lineTo(250, 0);
+      ctx.stroke();
+
+      ctx.restore();
+    }
+
+    function drawclear() {
+      var canvas = document.getElementById('radar');
+      if (!canvas.getContext) return;
+      var ctx = canvas.getContext("2d");
+      ctx.fillStyle = "rgb(0,0,0)";
+      ctx.beginPath();
+      ctx.arc(255,255,253,0, Math.PI,true);
+      ctx.moveTo(2, 255);
+      ctx.lineTo(508, 255);
+      ctx.closePath();
+      ctx.fill();
+    }
+
+    function drawline(angle,len,color) {
+      var canvas = document.getElementById('radar');
+      if (!canvas.getContext) return;
+      var ctx = canvas.getContext("2d");
+      ctx.save();
+      ctx.strokeStyle = color;
+      ctx.translate(255,255);
+      ctx.rotate(Math.PI/180*(360-angle));
+      ctx.beginPath();
+      ctx.moveTo(0, 0);
+      ctx.lineTo(len/2, 0);
+      ctx.stroke();
+      ctx.restore();
+    }
+    draw();
+    bgdraw();
+    
+  </script>
+  <script>
+    const colorlist = ["#000000","#001900","#003200","#004B00","#006400"
+                      ,"#007D00","#009600","#00AF00","#00C800","#00E100"
+                      ,"#000000","#191900","#323200","#4B4B00","#646400"
+                      ,"#7D7D00","#969600","#AFAF00","#C8C800","#E1E100"
+                      ,"#000000","#190000","#320000","#4B0000","#640000"
+                      ,"#7D0000","#960000","#AF0000","#C80000","#E10000"];
+    var drawlist = new Array();
+
+    const socket = io('/');
+    socket.on('connect', () => {
+      console.log('connected');
+    });
+
+    socket.on('disconnect', () => {
+      console.log('disconnected');
+    });
+
+    socket.on('cameraaddr', (addr) => {
+      console.log(addr);
+      document.getElementById('camera').src = addr;
+    })
+
+    socket.on("radardraw", (massage) => {
+      radar(massage);
+    })
+
+    function radar(massage) {
+      var masslist=JSON.parse(massage);
+      for(var i=0;i<10;i++) {
+        if(drawlist.length<10) {
+          drawlist.push(masslist[i]);
+          for(var j=0;j<drawlist.length;j++)
+          {
+            var colorbase=0;
+            var keys = Object.keys(drawlist[j])[0]
+            var values = Object.values(drawlist[j])[0]
+            if(values<100)
+              colorbase = 30;
+            else if(values<450)
+              colorbase = 20;
+            else colorbase = 10;
+            drawline(keys,500,"#000000");
+            drawline(keys,values,colorlist[colorbase-drawlist.length+j]);
+          }
+          bgdraw();
+          
+        }
+        else drawlist.shift();
+        
+      }
+    }
+
+    function refresh() {
+      socket.emit('getaddr', 'refreshing');
+    }
+
+    layui.use('slider', function () {
+      var $ = layui.$
+        , slider = layui.slider;
+      //默认滑块
+      slider.render({
+        elem: '#camerax'
+        , value: 90 //初始值
+        , min: 0 //最小值
+        , max: 180 //最大值
+        , step: 1 //步长
+        , input: true //输入框
+      });
+      slider.render({
+        elem: '#cameray'
+        , type: 'vertical'
+        , value: 90 //初始值
+        , min: 0 //最小值
+        , max: 180 //最大值
+        , step: 1 //步长
+        , input: true //输入框 
+        , height: 400
+      });
+      slider.render({
+        elem: '#speed'
+        , value: 20 //初始值
+        , min: 0 //最小值
+        , max: 100 //最大值
+        , step: 1 //步长
+        , input: true //输入框
+      });
+    });
+  </script>
+</body>
+
+</html>
