@@ -20,8 +20,8 @@
 </head>
 
 <body>
-  <div class="layui-row">
-    <div class="layui-col-xs6">
+  <div class="layui-row" style="height: 100%;">
+    <div class="layui-col-md6">
       <div class="layui-row" style="margin-bottom: 10px;">
         <div class="layui-col-md11">
           <fieldset class="layui-elem-field layui-field-title">
@@ -36,52 +36,215 @@
       </div>
       <div class="layui-row">
         <div class="layui-col-md11">
-          <div class="layui-row" style="height: 75vh;margin-top: 5px;">
+          <div class="layui-row" style="height: 65vh;margin-top: 5px;">
             <img id="camera" src="" style="width: 100%;object-fit: cover;" />
-          </div>
-          <div class="layui-row">
-            <div id="camerax" class="demo-slider"></div>
           </div>
         </div>
         <div class="layui-col-md1" style="margin-top: 20px;height: 100%;">
           <div id="cameray" class="demo-slider"></div>
         </div>
       </div>
+      <div class="layui-row" style="display: flex;justify-content: center;align-items: center;">
+        <div class="layui-col-md11">
+          <div id="camerax" class="demo-slider"></div>
+        </div>
+        <div class="layui-col-md1">
+          &nbsp;
+        </div>
+
+      </div>
     </div>
-    <div class="layui-col-xs6">
+    <div class="layui-col-md6">
       <div class="layui-row">
         <fieldset class="layui-elem-field layui-field-title">
           <legend>控制与传感器</legend>
         </fieldset>
       </div>
-      <div class="layui-row" style="display: flex;justify-content: center;align-items: Center;">
+      <div class="layui-row" style="display: flex;justify-content: center;align-items: center;">
         <div class="layui-col-md1" style="text-align:right">速度:</div>
         <div class="layui-col-md11">
           <div id="speed" class="demo-slider"></div>
         </div>
       </div>
-      <div class="layui-row">
-        <div class="layui-col-md3">
-        <div>aaa</div>
+      <div class="layui-row" style="display:flex;align-items:center;">
+        <div class="layui-col-md4">
+          <div>
+            <div class="layui-row">
+              <div class="layui-col-md4">
+                <button id="speaker" type="button" class="layui-btn layui-btn-primary" style="width: 100%;"
+                  onclick="speaker()">鸣笛</button>
+              </div>
+              <div class="layui-col-md4">
+                <button id="run" type="button" class="layui-btn layui-btn-primary" style="width: 100%;"
+                  onclick="run()">前进</button>
+              </div>
+              <div class="layui-col-md4">&nbsp;</div>
+            </div>
+            <div class="layui-row">
+              <div class="layui-col-md4">
+                <button id="left" type="button" class="layui-btn layui-btn-primary" style="width: 100%;"
+                  onclick="left()">左转</button>
+              </div>
+              <div class="layui-col-md4">
+                <button id="stop" type="button" class="layui-btn layui-btn-primary" style="width: 100%;"
+                  onclick="stop()">停止</button>
+              </div>
+              <div class="layui-col-md4">
+                <button id="right" type="button" class="layui-btn layui-btn-primary" style="width: 100%;"
+                  onclick="right()">右转</button>
+              </div>
+            </div>
+            <div class="layui-row" style="margin-bottom: 15px;">
+              <div class="layui-col-md4">
+                <button id="turnleft" type="button" class="layui-btn layui-btn-primary" style="width: 100%;"
+                  onclick="turnleft()">左旋</button>
+              </div>
+              <div class="layui-col-md4">
+                <button id="back" type="button" class="layui-btn layui-btn-primary" style="width: 100%;"
+                  onclick="back()">后退</button>
+              </div>
+              <div class="layui-col-md4">
+                <button id="turnright" type="button" class="layui-btn layui-btn-primary" style="width: 100%;"
+                  onclick="turnright()">右旋</button>
+              </div>
+            </div>
+            <div class="layui-row"
+              style="display: flex;justify-content: center;align-items: center;margin-bottom: 12px;">
+              <div class="layui-col-md1">R:</div>
+              <div class="layui-col-md11">
+                <div id="red" class="demo-slider"></div>
+              </div>
+            </div>
+            <div class="layui-row"
+              style="display: flex;justify-content: center;align-items: center;margin-bottom: 12px;">
+              <div class="layui-col-md1">G:</div>
+              <div class="layui-col-md11">
+                <div id="green" class="demo-slider"></div>
+              </div>
+            </div>
+            <div class="layui-row"
+              style="display: flex;justify-content: center;align-items: center;margin-bottom: 12px;">
+              <div class="layui-col-md1">B:</div>
+              <div class="layui-col-md11">
+                <div id="blue" class="demo-slider"></div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="layui-col-md9">
+        <div class="layui-col-md8">
           <canvas id="radar" width="510" height="270"></canvas>
         </div>
       </div>
+      <div class="layui-row" style="display: flex;justify-content: center;align-items: center;margin-top: 15px;">
+        <div class="layui-col-md4">寻线传感器：</div>
 
+        <div class="layui-col-md1">L1:<img id="LF0" src="../static/img/0.png" alt=""></div>
+        <div class="layui-col-md1">&nbsp;</div>
+        <div class="layui-col-md1">L2:<img id="LF1" src="../static/img/0.png" alt=""></div>
+        <div class="layui-col-md1">&nbsp;</div>
+        <div class="layui-col-md1">R1:<img id="LF2" src="../static/img/0.png" alt=""></div>
+        <div class="layui-col-md1">&nbsp;</div>
+        <div class="layui-col-md1">R2:<img id="LF3" src="../static/img/0.png" alt=""></div>
+        <div class="layui-col-md1">&nbsp;</div>
+      </div>
+      <div class="layui-row" style="display: flex;justify-content: center;align-items: center;margin-top: 15px;">
+        <div class="layui-col-md4">红外传感器：</div>
+        <div class="layui-col-md1">&nbsp;</div>
+        <div class="layui-col-md2">L:<img id="HW0" src="../static/img/0.png" alt=""></div>
+        <div class="layui-col-md2">&nbsp;</div>
+        <div class="layui-col-md2">R:<img id="HW1" src="../static/img/0.png" alt=""></div>
+        <div class="layui-col-md1">&nbsp;</div>
+      </div>
+      <div class="layui-row" style="display: flex;justify-content: center;align-items: center;margin-top: 15px;">
+        <div class="layui-col-md4">光线传感器：</div>
+        <div class="layui-col-md1">&nbsp;</div>
+        <div class="layui-col-md2">L:<img id="GM0" src="../static/img/0.png" alt=""></div>
+        <div class="layui-col-md2">&nbsp;</div>
+        <div class="layui-col-md2">R:<img id="GM1" src="../static/img/0.png" alt=""></div>
+        <div class="layui-col-md1">&nbsp;</div>
+      </div>
+      <div class="layui-row" style="display: flex;justify-content: center;align-items: center;margin-top: 15px;">
+        <div id="main" style="display: flex;height: 40vh;width:100vh"></div>
+      </div>
     </div>
   </div>
   <script src="../static/layui/layui.js"></script>
   <script src="../static/jquery/jquery.js"></script>
   <script src="../static/socket.io.js"></script>
+  <!-- <script src="../static/echarts.js"></script> -->
+  <script type="text/javascript" src="../static/echarts.min.js"></script>
+  <script type="text/javascript">
+    var xa = []
+    var xv = []
+    var xs = []
+    var dom = document.getElementById('main');
+    var myChart = echarts.init(dom, null, {
+      renderer: 'canvas',
+      useDirtyRect: false
+    });
+    var app = {};
+    var option;
+    option = {
+      legend: {
+        data: ['加速度', '速度', '总位移']
+      },
+      xAxis: {
+        type: 'category',
+        data: []
+      },
+      yAxis: {
+        type: 'value'
+      },
+      series: [
+        {
+          name: '速度',
+          type: 'line',
+          stack: 'Total',
+          data: xv
+        },
+        {
+          name: '加速度',
+          type: 'line',
+          stack: 'Total',
+          data: xa
+        },
+        {
+          name: '总位移',
+          type: 'line',
+          stack: 'Total',
+          data: xs
+        }
+      ]
+    };
+
+    if (option && typeof option === 'object') {
+      myChart.setOption(option);
+    }
+
+    window.addEventListener('resize', myChart.resize);
+  </script>
+
   <script>
+
+    window.requestAnimFrame = (function () {
+      return window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.oRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        function (callback) {
+          window.setTimeout(callback, 1000 / 10);
+        };
+    })();
+
+
     function draw() {
       var canvas = document.getElementById('radar');
       if (!canvas.getContext) return;
       var ctx = canvas.getContext("2d");
       ctx.fillStyle = "rgb(0,0,0)";
       ctx.beginPath();
-      ctx.arc(255,255,253,0, Math.PI,true);
+      ctx.arc(255, 255, 253, 0, Math.PI, true);
       ctx.moveTo(2, 255);
       ctx.lineTo(508, 255);
       ctx.closePath();
@@ -89,15 +252,15 @@
 
       ctx.font = "12px sans-serif"
       ctx.fillText("0", 252, 265);
-      ctx.fillText("100", 196, 265);
-      ctx.fillText("250", 121, 265);
-      ctx.fillText("375", 60, 265);
+      ctx.fillText("50", 194, 265);
+      ctx.fillText("100", 121, 265);
+      ctx.fillText("250", 60, 265);
       ctx.fillText("500", 0, 265);
-      ctx.fillText("100", 294, 265);
-      ctx.fillText("250", 370, 265);
-      ctx.fillText("375", 430, 265);
+      ctx.fillText("50", 296, 265);
+      ctx.fillText("100", 370, 265);
+      ctx.fillText("250", 430, 265);
       ctx.fillText("500", 490, 265);
-      
+
     }
     function bgdraw() {
       var canvas = document.getElementById('radar');
@@ -106,29 +269,29 @@
       ctx.strokeStyle = "rgb(0,100,0)";
       ctx.save();
       ctx.beginPath();
-      ctx.arc(255,255,250,0, Math.PI,true);
+      ctx.arc(255, 255, 250, 0, Math.PI, true);
       ctx.moveTo(255, 255);
       ctx.lineTo(255, 2);
       ctx.stroke();
-      
+
       ctx.beginPath();
-      ctx.arc(255,255,50,0, Math.PI,true);
-      ctx.arc(255,255,125,0, Math.PI,true);
-      ctx.arc(255,255,187.5,0, Math.PI,true);
+      ctx.arc(255, 255, 50, 0, Math.PI, true);
+      ctx.arc(255, 255, 125, 0, Math.PI, true);
+      ctx.arc(255, 255, 187.5, 0, Math.PI, true);
       ctx.stroke();
 
-      
+
       ctx.beginPath();
-      ctx.translate(255,255);
-      ctx.rotate(Math.PI/180*225);
+      ctx.translate(255, 255);
+      ctx.rotate(Math.PI / 180 * 225);
       ctx.moveTo(0, 0);
       ctx.lineTo(250, 0);
       ctx.stroke();
       ctx.restore();
-      
+
       ctx.save();
-      ctx.translate(255,255);
-      ctx.rotate(Math.PI/180*315);
+      ctx.translate(255, 255);
+      ctx.rotate(Math.PI / 180 * 315);
       ctx.beginPath();
       ctx.moveTo(0, 0);
       ctx.lineTo(250, 0);
@@ -143,39 +306,42 @@
       var ctx = canvas.getContext("2d");
       ctx.fillStyle = "rgb(0,0,0)";
       ctx.beginPath();
-      ctx.arc(255,255,253,0, Math.PI,true);
+      ctx.arc(255, 255, 253, 0, Math.PI, true);
       ctx.moveTo(2, 255);
       ctx.lineTo(508, 255);
       ctx.closePath();
       ctx.fill();
     }
 
-    function drawline(angle,len,color) {
+    function drawline(angle, len, color, width) {
+      if (len <= 100) len = 250 / 100 * len;
+      else len = 0.625 * len + 187.5;
+      if (len > 500) len = 500;
       var canvas = document.getElementById('radar');
       if (!canvas.getContext) return;
       var ctx = canvas.getContext("2d");
+      ctx.lineWidth = width;
       ctx.save();
       ctx.strokeStyle = color;
-      ctx.translate(255,255);
-      ctx.rotate(Math.PI/180*(360-angle));
+      ctx.translate(255, 255);
+      ctx.rotate(Math.PI / 180 * (360 - angle));
       ctx.beginPath();
       ctx.moveTo(0, 0);
-      ctx.lineTo(len/2, 0);
+      ctx.lineTo(len / 2, 0);
       ctx.stroke();
       ctx.restore();
     }
     draw();
     bgdraw();
-    
+
   </script>
   <script>
-    const colorlist = ["#000000","#001900","#003200","#004B00","#006400"
-                      ,"#007D00","#009600","#00AF00","#00C800","#00E100"
-                      ,"#000000","#191900","#323200","#4B4B00","#646400"
-                      ,"#7D7D00","#969600","#AFAF00","#C8C800","#E1E100"
-                      ,"#000000","#190000","#320000","#4B0000","#640000"
-                      ,"#7D0000","#960000","#AF0000","#C80000","#E10000"];
+    const colorlist = ["rgba(0,255,0,", "rgba(255,255,0,", "rgba(255,0,0,"];
+    var anglelist = new Array(180);
     var drawlist = new Array();
+    var angle = 0;
+    var order = false;
+    window.requestAnimFrame(radar);
 
     const socket = io('/');
     socket.on('connect', () => {
@@ -191,61 +357,184 @@
       document.getElementById('camera').src = addr;
     })
 
-    socket.on("radardraw", (massage) => {
-      radar(massage);
+    socket.on('sensor_render', (massage) => {
+      var render = massage.split(",");
+      for (var i = 0; i < render.length; i++) {
+        var id = render[i].split(":")[0];
+        var data = render[i].split(":")[1];
+        for (var j = 0; j < data.length; j++) {
+          if (data[j] == "0") document.getElementById(id + String(j)).src = "../static/img/0.png";
+          else document.getElementById(id + String(j)).src = "../static/img/1.png";
+
+        }
+
+      }
+
     })
 
-    function radar(massage) {
-      var masslist=JSON.parse(massage);
-      for(var i=0;i<10;i++) {
-        if(drawlist.length<10) {
-          drawlist.push(masslist[i]);
-          for(var j=0;j<drawlist.length;j++)
-          {
-            var colorbase=0;
-            var keys = Object.keys(drawlist[j])[0]
-            var values = Object.values(drawlist[j])[0]
-            if(values<100)
-              colorbase = 30;
-            else if(values<450)
-              colorbase = 20;
-            else colorbase = 10;
-            drawline(keys,500,"#000000");
-            drawline(keys,values,colorlist[colorbase-drawlist.length+j]);
-          }
-          bgdraw();
-          
-        }
-        else drawlist.shift();
-        
+    socket.on("move_render", (massage) => {
+      var all = JSON.parse(massage);
+      console.log(all)
+      // var time=list[3].toString().split(".")
+      // var timeset=new date('Y-m-d H:i:s',time[0])+"."+time[1];
+      var list = all
+      xa.push(list[0])
+      xv.push(list[1])
+      xs.push(list[2])
+      if (xa.length > 50) xa.shift()
+      if (xv.length > 50) xv.shift()
+      if (xs.length > 50) xs.shift()
+      myChart.setOption({
+          series: [
+            {
+              name: '速度',
+              type: 'line',
+              stack: 'Total',
+              data: xv
+            },
+            {
+              name: '加速度',
+              type: 'line',
+              stack: 'Total',
+              data: xa
+            },
+            {
+              name: '总位移',
+              type: 'line',
+              stack: 'Total',
+              data: xs
+            }
+          ]
+        });
+    })
+
+
+    socket.on("radardraw", (massage) => {
+      var masslist = JSON.parse(massage);
+      for (var i = 0; i < 10; i++) {
+        var keys = Object.keys(masslist[i])[0];
+        var values = Object.values(masslist[i])[0];
+        anglelist[keys] = values;
       }
+    })
+
+    function radar() {
+      if (drawlist.length < 20) {
+        drawlist.push(angle);
+        for (var j = 0; j < drawlist.length; j++) {
+          var colorbase = 0;
+          var keys = drawlist[j];
+          var values = anglelist[keys];
+          if (values < 100)
+            colorbase = 2;
+          else if (values < 250)
+            colorbase = 1;
+          else colorbase = 0;
+          drawline(keys, 500, "#000000", 2);
+          drawline(keys, values, colorlist[colorbase] + String((20 - j - 1) * 0.05) + ")", 1);
+        }
+        bgdraw();
+
+      }
+      else drawlist.shift();
+      if (order) angle -= 2;
+      else angle += 2;
+      if (angle == 0 || angle == 180)
+        order = !order;
+      window.requestAnimFrame(radar);
     }
 
+    radar();
     function refresh() {
       socket.emit('getaddr', 'refreshing');
     }
+    function speaker() {
+      socket.emit('control', 'speaker:1')
+    }
+    function run() {
+      socket.emit('control', 'run:1')
+    }
+    function stop() {
+      socket.emit('control', 'stop:1')
+    }
+    function left() {
+      socket.emit('control', 'left:1')
+    }
+    function right() {
+      socket.emit('control', 'right:1')
+    }
+    function back() {
+      socket.emit('control', 'back:1')
+    }
 
+    function turnleft() {
+      socket.emit('control', 'turnleft:1')
+    }
+    function turnright() {
+      socket.emit('control', "turnright:1")
+    }
+    var camerax;
+    var cameray;
     layui.use('slider', function () {
       var $ = layui.$
         , slider = layui.slider;
       //默认滑块
-      slider.render({
+      camerax = slider.render({
         elem: '#camerax'
         , value: 90 //初始值
         , min: 0 //最小值
         , max: 180 //最大值
         , step: 1 //步长
         , input: true //输入框
+        , change: function (value) {
+          socket.emit('control', 'camerax:' + String(value));
+        }
       });
       slider.render({
+        elem: '#red'
+        , value: 0 //初始值
+        , min: 0 //最小值
+        , max: 255 //最大值
+        , step: 1 //步长
+        , input: true //输入框
+        , change: function (value) {
+          socket.emit('control', 'red:' + String(value));
+        }
+      });
+      slider.render({
+        elem: '#green'
+        , value: 0 //初始值
+        , min: 0 //最小值
+        , max: 255 //最大值
+        , step: 1 //步长
+        , input: true //输入框
+        , change: function (value) {
+          socket.emit('control', 'green:' + String(value));
+        }
+      });
+      slider.render({
+        elem: '#blue'
+        , value: 0 //初始值
+        , min: 0 //最小值
+        , max: 255 //最大值
+        , step: 1 //步长
+        , input: true //输入框
+        , change: function (value) {
+          socket.emit('control', 'blue:' + String(value));
+        }
+      });
+      cameray = slider.render({
         elem: '#cameray'
         , type: 'vertical'
         , value: 90 //初始值
-        , min: 0 //最小值
+        , min: 45 //最小值
         , max: 180 //最大值
         , step: 1 //步长
         , input: true //输入框 
         , height: 400
+        , change: function (value) {
+          socket.emit('control', 'cameray:' + String(value));
+        }
       });
       slider.render({
         elem: '#speed'
@@ -254,6 +543,9 @@
         , max: 100 //最大值
         , step: 1 //步长
         , input: true //输入框
+        , change: function (value) {
+          socket.emit('control', 'speed:' + String(value));
+        }
       });
     });
   </script>

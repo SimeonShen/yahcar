@@ -33,8 +33,23 @@ class VisitedController extends Controller {
 
   async radar() {
     const { ctx } = this;
-    console.log('[socket]recv:radar',ctx.args[0]);
+    //console.log('[socket]recv:radar',ctx.args[0]);
     await this.app.io.of("/").emit("radardraw",ctx.args[0])
+  }
+
+  async control() {
+    const { ctx } = this;
+    console.log('[socket]recv:radar',ctx.args[0]);
+    await this.app.io.of("/").emit("control_massage",ctx.args[0])
+  }
+  async sensor() {
+    const { ctx } = this;
+    await this.app.io.of("/").emit("sensor_render",ctx.args[0])
+  }
+  async move() {
+    const { ctx } = this;
+    console.log('[socket]recv:radar',ctx.args[0]);
+    await this.app.io.of("/").emit("move_render",ctx.args[0])
   }
 }
 
